@@ -1,0 +1,103 @@
+{# @author : Maeva/Elise #}
+<div id="film" class='container'>
+	<div class='row w-100 '>
+		<div class="col text-center mt-5 mb-3">
+			<h1>Rechercher un Film</h1>
+			<div>
+				<p>Saisir un mot du titre</p>
+			</div>
+			{# pour recevoir données formulaire sur serveur : #}
+			<form action='film' method='POST' class="d-flex justify-content-center">
+				<input name='search' type="text" id="search" placeholder=" Search" class="form-control w-25 me-1">
+				<input type="submit" name='Rechercher' id='recherche' value='Rechercher' class="btn btn-secondary"><br>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="container my-3">
+	<div class="row">
+		<div class="col">
+			<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-inner">
+					{% for film in allFilms %}
+						{# si, 1ère itération : #}
+						{% if loop.first %}
+							{# 1ère itération contient class carrousel item active : #}
+							<div class="carousel-item active w-100">
+								<div class="row">
+									<div class="col-2"></div>
+									<div class="col-8">
+										<div class="card mb-3">
+											<div class="row g-0">
+												<div class="col-6">
+													<img class="img-fluid" src={{film.get_affiche}} alt="poster" style="height : 600px; object-fit: cover;">
+												</div>
+												<div class="col-6 mt-5 text-center">
+													<div class="card-body">
+														<h5 class="card-title">
+															{{film.get_title}}
+															({{film.get_annee}})
+														</h5>
+													</div>
+													<p class="card-text">Acteurs :</p>
+													{% for role in film.get_tabRoles %}
+														{{role.get_personnage}}
+														:
+														{{role.get_actor.get_nomActor}}
+														{{role.get_actor.get_prenomActor}}
+														<br>
+													{% endfor %}
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-2"></div>
+								</div>
+							</div>
+						{% else %}
+							<div class="carousel-item w-100">
+								<div class="row">
+									<div class="col-2"></div>
+									<div class="col-8">
+										<div class="card mb-3">
+											<div class="row g-0">
+												<div class="col-6">
+													<img class="img-fluid" src={{film.get_affiche}} alt="poster" style="height : 600px; object-fit: cover;">
+												</div>
+												<div class="col-6 mt-5 text-center">
+													<div class="card-body">
+														<h5 class="card-title">
+															{{film.get_title}}
+															({{film.get_annee}})
+														</h5>
+													</div>
+													<p class="card-texts">Acteurs :</p>
+													{% for role in film.get_tabRoles %}
+														{{role.get_personnage}}
+														:
+														{{role.get_actor.get_nomActor}}
+														{{role.get_actor.get_prenomActor}}
+														<br>
+													{% endfor %}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+					<span style="color:black; font-weight:bold;" aria-hidden="true">
+						Previous</span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+					<span style="color:black; font-weight:bold;" aria-hidden="true">Next</span>
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
